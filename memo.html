@@ -171,8 +171,23 @@
         
         </head>
         <body class="vscode-body vscode-light">
-            <h2 id="links">links</h2>
-<p><a href="https://istkweb.com/how-to/do-not-make-enter-page/">「エンターページ」だけは本当にやめなさい。ポートフォリオサイトを自作したいイラストレーターさんへ</a></p>
+            <ul>
+<li><a href="#links">links</a></li>
+<li><a href="#head%E3%82%BF%E3%82%B0"><code>head</code>タグ</a></li>
+<li><a href="#%E9%AD%85%E5%8A%9B%E7%9A%84%E3%81%AA%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%A8%E3%81%AF">魅力的なイラストページとは</a></li>
+<li><a href="#%E9%9B%9B%E5%BD%A21">雛形1</a></li>
+<li><a href="#%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%81%AE%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">イラストの表示方法について</a>
+<ul>
+<li><a href="#%E3%83%A9%E3%82%A4%E3%83%88%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%81%A7%E3%81%AF%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E4%BD%BF%E3%81%86">ライトボックススタイルではスクリプトを使う</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%BB%E5%83%8F%E3%83%91%E3%82%B9%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">画像パスの設定について</a></li>
+</ul>
+<h2 id="links">links</h2>
+<ul>
+<li><a href="https://github.com/niwune2/myGallery"> myGallery - github</a></li>
+<li><a href="https://istkweb.com/how-to/do-not-make-enter-page/">「エンターページ」だけは本当にやめなさい。ポートフォリオサイトを自作したいイラストレーターさんへ</a></li>
+</ul>
 <h2 id="headタグ"><code>head</code>タグ</h2>
 <p>レスポンシブデザインを前提としたホームページの<code>head</code>部分を設定する際には、いくつか重要な要素を含めることが必要です。以下は、あなたの「niwune's Art Gallery」ウェブサイト用の<code>head</code>部分のサンプルコードです。このコードは、基本的なメタタグとスタイルシートのリンクを含んでおり、レスポンシブデザインに対応しています。</p>
 <pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
@@ -478,6 +493,29 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <p>このコードは、画像をクリックするとライトボックスが表示され、背景をクリックすると閉じる基本的な機能を提供します。さらにカスタマイズして、特定のニーズやデザイン要件に合わせることが可能です。また、より高度な機能やデザインを望む場合、既存のライトボックスライブラリ（例：Fancybox、Lightbox2など）を使用することも一つの選択肢です。</p>
+<h2 id="画像パスの設定について">画像パスの設定について</h2>
+<p>GitHub Pagesでの画像の読み込み問題は、おそらくファイルパスに起因していると思われます。<code>index.html</code> と <code>000.html</code> が異なるディレクトリレベルにある場合、相対パスの解釈が変わるためです。具体的には、<code>index.html</code> がルートディレクトリにある一方で、<code>000.html</code> がサブディレクトリ（この場合は <code>pages/DS</code>）にあると、相対パスは異なる基点から計算されます。</p>
+<p><code>index.html</code> で <code>images/DS/000.jpg</code> というパスが機能しているのは、このファイルがルートディレクトリにあるためです。しかし、<code>000.html</code> が <code>pages/DS</code> ディレクトリ内にある場合、相対パスはこのサブディレクトリからの相対位置を基準にします。</p>
+<p>解決策としては、以下のいずれかを試してみてください：</p>
+<ol>
+<li>
+<p><strong>絶対パスの使用</strong>:</p>
+<ul>
+<li>画像のパスを絶対パスで指定します。GitHub Pagesでは、リポジトリ名がURLの一部になるため、この点を考慮する必要があります。例えば、<code>/myGallery/images/DS/000.jpg</code> のようにします。</li>
+</ul>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/myGallery/images/DS/000.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;草原&quot;</span>&gt;</span>
+</code></pre>
+</li>
+<li>
+<p><strong>相対パスの修正</strong>:</p>
+<ul>
+<li><code>000.html</code> が <code>pages/DS</code> ディレクトリにある場合、画像への相対パスは <code>../../images/DS/000.jpg</code> になります。これは、「2階層上のディレクトリに移動してから、<code>images/DS/000.jpg</code> を見つける」という意味です。</li>
+</ul>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../../images/DS/000.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;草原&quot;</span>&gt;</span>
+</code></pre>
+</li>
+</ol>
+<p>どちらの方法を選択するかは、プロジェクトの構造や個人の好みによりますが、絶対パスはより直接的で、場所に依存しないため、ディレクトリ構造が複雑な場合には便利です。しかし、リポジトリ名がURLの一部になるGitHub Pagesの場合は、リポジトリ名をパスに含める必要がある点に注意してください。相対パスは、特にファイル構造がシンプルな場合や、パスが変更される可能性が低い場合に適しています。</p>
 
             
             
